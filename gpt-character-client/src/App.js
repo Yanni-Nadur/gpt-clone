@@ -9,17 +9,12 @@ function App() {
 	const [chatLog, setChatLog] = useState([
 		{
 			user: "gpt",
-			message: "Nyallo 💙 I am Shiorin~ What do you want to talk about?"
+			message: "Nyallo 💙 Sobre o que você quer conversar?"
 		},
 	]);
 
 	function clearChat(){
-		setChatLog([
-			{
-				user: "gpt",
-				message: "Nyallo 💙 I am Shiorin~ What do you want to talk about?"
-			},
-		]);
+		setChatLog([]);
 	}
 
 	async function handleSubmit(e){

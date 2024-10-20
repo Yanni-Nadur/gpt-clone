@@ -1,10 +1,17 @@
 import OpenAI from "openai";
 import express from 'express';
 import cors from 'cors'; 
+import dotenv from 'dotenv';
+
+// Load environment variables from the .env file
+dotenv.config();
+
+const organization = process.env.ORGANIZATION;
+const apiKey = process.env.API_KEY;
 
 const openai = new OpenAI({
-    organization: "org-zGpMpkuaErkMYyszE4RidJtd",
-    apiKey: "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",
+    organization: organization,
+    apiKey: apiKey,
 });
 
 const app = express()
@@ -13,6 +20,7 @@ const port = 3080
 app.use(cors());
 app.use(express.json());
 
+
 let conversationHistory = []; 
 
 app.post('/', async (req, res) =>{
@@ -20,11 +28,10 @@ app.post('/', async (req, res) =>{
 
   // Add user message to conversation history
   conversationHistory.push({ role: "user", content: message });
-  console.log(conversationHistory);
 
   const response = await openai.chat.completions.create({
     messages: [
-      { role: "system", content: "You have the personality of a cute Anime girl named Shiorin." },
+      { role: "system", content: "Você tem a personalidade de uma linda garota de anime chamada Shiorin." },
       ...conversationHistory // Spread the conversation history
     ],
     model: "gpt-3.5-turbo-16k",
@@ -35,13 +42,11 @@ app.post('/', async (req, res) =>{
   // Add bot response to conversation history
   conversationHistory.push({ role: "assistant", content: botMessage });
 
-  console.log(botMessage);
-
   res.json({
     message: botMessage,
   });
 })
 
 app.listen(port, () =>{
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`App listening at http://localhost:${port}`)
 })
