@@ -10,8 +10,8 @@ const organization = process.env.ORGANIZATION;
 const apiKey = process.env.API_KEY;
 
 const openai = new OpenAI({
-    organization: organization,
-    apiKey: apiKey,
+  organization: organization,
+  apiKey: apiKey,
 });
 
 const app = express()
